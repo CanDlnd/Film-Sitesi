@@ -4,50 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Film & Dizi Öneri</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Film ve Dizi Önerileri</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <div class="background-animation"></div>
     <header>
         <nav>
-            <h1>Film & Dizi Öneri</h1>
+            <div class="logo">
+                <img src="logo.png" alt="Film ve Dizi Önerileri">
+            </div>
         </nav>
     </header>
 
     <main>
         <div class="recommendation-form">
             <div class="form-group">
-                <label for="mediaType">Ne İzlemek İstersiniz?</label>
-                <select id="mediaType">
-                    <option value="movie">Film</option>
-                    <option value="tv">Dizi</option>
-                </select>
+                <label for="mediaType">
+                    <i class="fas fa-film"></i>
+                    Ne izlemek istersiniz?
+                </label>
+                <div class="select-wrapper">
+                    <select id="mediaType">
+                        <option value="movie">Film</option>
+                        <option value="tv">Dizi</option>
+                    </select>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="genre">Hangi Türde Olsun?</label>
-                <select id="genre">
-                    <option value="">Tür Seçin</option>
-                    <!-- Kategoriler JavaScript ile doldurulacak -->
-                </select>
+                <label for="genre">
+                    <i class="fas fa-theater-masks"></i>
+                    Tür seçin:
+                </label>
+                <div class="select-wrapper">
+                    <select id="genre">
+                        <option value="">Tür Seçin</option>
+                        <!-- Kategoriler JavaScript ile doldurulacak -->
+                    </select>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
             </div>
 
-            <button id="recommendBtn" class="recommend-btn">Bana Öner!</button>
+            <button id="recommendBtn" class="recommend-btn">
+                <span class="btn-content">
+                    <i class="fas fa-magic"></i>
+                    Bana Öner!
+                </span>
+            </button>
         </div>
 
         <div class="recommendations" id="recommendations">
             <!-- Öneriler buraya gelecek -->
         </div>
+
+        <div class="loading-animation" id="loading">
+            <div class="spinner"></div>
+            <p>Öneriler Hazırlanıyor...</p>
+        </div>
     </main>
 
     <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close">
+                <i class="fas fa-times"></i>
+            </span>
             <div id="modal-details"></div>
         </div>
     </div>
+
+    <footer>
+        <p>Bu uygulama <a href="https://www.themoviedb.org" target="_blank">TMDB</a> API'si kullanılarak
+            geliştirilmiştir.</p>
+    </footer>
 
     <script src="config.js"></script>
     <script src="app.js"></script>
