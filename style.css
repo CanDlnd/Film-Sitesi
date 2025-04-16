@@ -466,9 +466,10 @@ select:focus+i {
 
 .modal-info {
     display: flex;
-    flex-direction: column;
     gap: 1.5rem;
     text-align: left;
+    flex-direction: column;
+    align-items: center;
 }
 
 .modal-header h2 {
@@ -535,6 +536,8 @@ select:focus+i {
     margin-bottom: 1rem;
     line-height: 1.6;
     color: var(--text-color);
+    text-align: justify;
+    text-indent: 30px;
 }
 
 #modal-details strong {
@@ -574,8 +577,7 @@ select:focus+i {
         margin: 0;
         padding: 1rem;
         border-radius: 0;
-        height: 100vh;
-        max-height: 100vh;
+        max-height: 80vh;
     }
 
     .modal-details-grid {
@@ -585,7 +587,14 @@ select:focus+i {
     }
 
     .modal-poster {
-        height: 400px;
+        height: 200px;
+        box-shadow: none;
+    }
+
+    #modal-details img {
+        height: 200px;
+        object-fit: contain;
+        box-shadow: none;
     }
 
     .modal-header h2 {
