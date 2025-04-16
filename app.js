@@ -16,7 +16,7 @@ recommendBtn.addEventListener('click', getRecommendation);
 function closeModalHandler() {
     modal.classList.remove('active');
     document.body.style.overflow = '';
-    
+
     // Wait for animation to finish before hiding
     setTimeout(() => {
         modal.style.display = 'none';
@@ -152,31 +152,79 @@ async function showDetails(item) {
     try {
         let url;
         if (item.media_type === 'tv' || mediaTypeSelect.value === 'tv') {
-            url = `${BASE_URL}/tv/${item.id}?api_key=${API_KEY}&language=tr-TR`;
+            url = `${BASE_URL}/tv/${item.id}?api_key=${API_KEY}&language=tr-TR&append_to_response=credits`;
         } else {
-            url = `${BASE_URL}/movie/${item.id}?api_key=${API_KEY}&language=tr-TR`;
+            url = `${BASE_URL}/movie/${item.id}?api_key=${API_KEY}&language=tr-TR&append_to_response=credits`;
         }
-        
+
         const response = await fetch(url);
         const details = await response.json();
-        
-        const backdropImage = details.backdrop_path
-            ? `${IMAGE_BASE_URL}${details.backdrop_path}`
-            : 'https://via.placeholder.com/800x450?text=No+Image';
-        
-        modalDetails.innerHTML = `
-            <img src="${backdropImage}" alt="${details.title || details.name}">
-            <h2>${details.title || details.name}</h2>
-            <p><strong>Çıkış Tarihi:</strong> ${details.release_date || details.first_air_date}</p>
-            <p><strong>IMDB Puanı:</strong> <i class="fas fa-star"></i> ${details.vote_average.toFixed(1)}</p>
-            <p><strong>Açıklama:</strong> ${details.overview || 'Açıklama bulunamadı.'}</p>
+
+        const posterImage = details.poster_path
+            ? `${IMAGE_BASE_URL}${details.poster_path}`
+            : 'https://via.placeholder.com/500x750?text=No+Image';
+
+        // Format release date
+        const releaseDate = details.release_date || details.first_air_date;
+        const formattedDate = releaseDate ? new Date(releaseDate).toLocaleDateString('tr-TR', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        }) : 'Tarih bulunamadı';
+
+        // Get director or creator
+        let creator = 'Bilgi bulunamadı';
+        if (details.credits) {
+            if (mediaTypeSelect.value === 'tv') {
+                creator = details.created_by?.map(person => person.name).join(', ') || 'Bilgi bulunamadı';
+            } else {
+                const director = details.credits.crew?.find(person => person.job === 'Director');
+                creator = director ? director.name : 'Bilgi bulunamadı';
+            }
+        }
+
+        // Get genres
+        const genres = details.genres?.map(genre => genre.name).join(', ') || 'Bilgi bulunamadı';
+
+        // Get runtime/episode info
+        let duration = '';
+        if (mediaTypeSelect.value === 'tv') {
+            duration = `${details.number_of_seasons || '?'} Sezon, ${details.number_of_episodes || '?'} Bölüm`;
+        } else {
+            const hours = Math.floor(details.runtime / 60);
+            const minutes = details.runtime % 60;
+            duration = hours > 0 ? `${hours}s ${minutes}dk` : `${minutes}dk`;
+        }
+
+        const modalContent = `
+            <div class="modal-poster">
+                <img src="${posterImage}" alt="${details.title || details.name}">
+            </div>
+            <div class="modal-info">
+                <div class="modal-header">
+                    <h2>${details.title || details.name}</h2>
+                </div>
+                <div class="modal-meta">
+                    <span><i class="fas fa-calendar"></i> ${formattedDate}</span>
+                    <span><i class="fas fa-star"></i> ${details.vote_average.toFixed(1)}</span>
+                    <span><i class="fas fa-clock"></i> ${duration}</span>
+                    <span><i class="fas fa-film"></i> ${genres}</span>
+                    <span><i class="fas fa-user"></i> ${creator}</span>
+                </div>
+                <div class="modal-overview">
+                    <h3>Açıklama:</h3>
+                    <p>${details.overview || 'Açıklama bulunamadı.'}</p>
+                </div>
+            </div>
         `;
-        
+
+        modalDetails.innerHTML = modalContent;
+
         modal.style.display = 'block';
         // Trigger reflow for animation
         modal.offsetHeight;
         modal.classList.add('active');
-        
+
         // Add scroll lock to body
         document.body.style.overflow = 'hidden';
     } catch (error) {
