@@ -34,18 +34,92 @@ body {
     background-attachment: fixed;
 }
 
-.background-animation {
+.background-wrapper {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
-    opacity: 0.03;
+    overflow: hidden;
     z-index: -1;
+}
+
+.background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    opacity: 0.05;
     animation: gradientMove 15s ease infinite;
     filter: blur(100px);
     transform: scale(1.2);
+}
+
+.floating-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.shape-1,
+.shape-2,
+.shape-3,
+.shape-4,
+.shape-5 {
+    position: absolute;
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+    border-radius: 50%;
+    opacity: 0.1;
+    filter: blur(10px);
+    animation: float 20s infinite;
+}
+
+.shape-1 {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 200px;
+    height: 200px;
+    top: 60%;
+    right: 10%;
+    animation-delay: -5s;
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+}
+
+.shape-3 {
+    width: 150px;
+    height: 150px;
+    top: 30%;
+    right: 30%;
+    animation-delay: -10s;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+}
+
+.shape-4 {
+    width: 250px;
+    height: 250px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: -15s;
+}
+
+.shape-5 {
+    width: 180px;
+    height: 180px;
+    top: 50%;
+    left: 50%;
+    animation-delay: -7s;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
 }
 
 @keyframes gradientMove {
@@ -59,6 +133,26 @@ body {
 
     100% {
         background-position: 0% 50%;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(50px, -30px) rotate(90deg);
+    }
+
+    50% {
+        transform: translate(0, 50px) rotate(180deg);
+    }
+
+    75% {
+        transform: translate(-50px, -30px) rotate(270deg);
     }
 }
 
@@ -331,6 +425,7 @@ select:focus+i {
 .no-results p {
     font-size: 1.2rem;
     color: var(--text-color);
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -837,8 +932,7 @@ footer {
     padding: 1.5rem;
     position: relative;
     z-index: 10;
-    background: var(--card-bg);
-    border-radius: var(--border-radius);
+    background: rgb(22 12 24);
     box-shadow: var(--shadow-sm);
 }
 
@@ -851,12 +945,12 @@ footer {
 
 .developer-info {
     font-weight: 500;
-    color: var(--text-color);
+    color: #ffffff;
     opacity: 0.9;
 }
 
 .developer-info a {
-    color: var(--accent-color);
+    color: #eb3175;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -873,4 +967,12 @@ footer a {
 
 footer a:hover {
     color: var(--primary-color);
+}
+
+footer .tmdb {
+    color: white;
+}
+
+footer .tmdb>a {
+    color: #ec3174;
 }
