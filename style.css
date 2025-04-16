@@ -75,6 +75,10 @@ header {
     max-width: 800px;
     margin: 1.5rem auto 0.5rem;
     padding: 0 1rem;
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .search-box {
@@ -102,6 +106,8 @@ header {
     color: white;
     font-family: 'Poppins', sans-serif;
     outline: none;
+    width: 100%;
+    min-width: 0;
 }
 
 .search-box input::placeholder {
@@ -153,6 +159,8 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .recommendation-form {
@@ -161,12 +169,14 @@ main {
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-md);
     max-width: 600px;
+    width: 95%;
     margin: 2rem auto 3rem auto;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     transform: translateY(0);
     transition: transform var(--transition-normal), box-shadow var(--transition-normal);
     animation: formAppear 0.6s var(--transition-normal) both;
+    box-sizing: border-box;
 }
 
 @keyframes formAppear {
@@ -648,7 +658,10 @@ select:focus+i {
         margin: 0;
         padding: 1rem;
         border-radius: 0;
-        max-height: 80vh;
+        height: 100vh;
+        max-height: 100vh;
+        width: 100%;
+        overflow-y: auto;
     }
 
     .modal-details-grid {
@@ -658,8 +671,10 @@ select:focus+i {
     }
 
     .modal-poster {
-        height: 200px;
+        height: 300px;
         box-shadow: none;
+        margin: 0 auto;
+        max-width: 200px;
     }
 
     #modal-details img {
@@ -673,11 +688,28 @@ select:focus+i {
     }
 
     .modal-meta {
+        justify-content: center;
+        flex-wrap: wrap;
         font-size: 1rem;
     }
 
+    .modal-meta span {
+        font-size: 0.9rem;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        margin: 0.25rem;
+    }
+
     .modal-overview {
+        text-align: justify;
+        padding: 0 1rem;
         font-size: 1rem;
+    }
+
+    .modal-overview h3 {
+        text-align: center;
+        margin-bottom: 1rem;
     }
 
     #modal-details h2 {
@@ -693,13 +725,98 @@ select:focus+i {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-    .recommendation-form {
-        padding: 1.5rem;
+@media (max-width: 480px) {
+    .search-box {
+        padding: 0.3rem;
+    }
+
+    .search-box input {
+        padding: 0.6rem 1rem;
+        font-size: 14px;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 25px;
+        width: 100%;
+    }
+
+    .search-box i {
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+
+    .search-container {
+        margin: 0.8rem auto;
+        padding: 0 0.8rem;
     }
 
     .recommendations {
-        grid-template-columns: 1fr;
+        padding: 0.5rem;
+    }
+
+    .movie-card {
+        margin-bottom: 0.8rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .recommendations {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .movie-card img {
+        height: 350px;
+    }
+
+    .recommendation-form {
+        max-width: 500px;
+    }
+
+    .search-container {
+        max-width: 600px;
+    }
+
+    .modal-content {
+        max-width: 90%;
+    }
+
+    .modal-details-grid {
+        gap: 1.5rem;
+    }
+
+    .modal-header h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .recommendation-form {
+        padding: 1.5rem;
+        margin: 1rem auto;
+    }
+
+    .logo img {
+        max-width: 150px;
+    }
+
+    .search-container {
+        margin: 1rem auto;
+    }
+
+    .recommendations {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .movie-info h3 {
+        font-size: 0.9rem;
+    }
+
+    .rating {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
     }
 
     .movie-card img {
