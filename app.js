@@ -7,10 +7,65 @@ const loadingAnimation = document.getElementById('loading');
 const modal = document.getElementById('modal');
 const modalDetails = document.getElementById('modal-details');
 const closeModal = document.querySelector('.close');
+const searchInput = document.getElementById('searchInput');
+const searchButton = document.getElementById('searchButton');
 
 // Event Listeners
 mediaTypeSelect.addEventListener('change', loadGenres);
 recommendBtn.addEventListener('click', getRecommendation);
+searchButton.addEventListener('click', performSearch);
+searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        performSearch();
+    }
+});
+
+// Search functionality
+async function performSearch() {
+    const query = searchInput.value.trim();
+    if (!query) return;
+
+    try {
+        // Show loading animation
+        loadingAnimation.classList.add('active');
+        recommendationsDiv.innerHTML = '';
+
+        // Search for movies and TV shows
+        const movieResponse = await fetch(
+            `${BASE_URL}/search/multi?api_key=${API_KEY}&language=tr-TR&query=${encodeURIComponent(query)}&page=1`
+        );
+        const data = await movieResponse.json();
+
+        // Filter out people and only keep movies and TV shows
+        const results = data.results
+            .filter(item => item.media_type === 'movie' || item.media_type === 'tv')
+            .slice(0, 6);
+
+        // Hide loading animation
+        loadingAnimation.classList.remove('active');
+
+        if (results.length === 0) {
+            recommendationsDiv.innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <p>Aradığınız kriterlere uygun sonuç bulunamadı.</p>
+                </div>
+            `;
+            return;
+        }
+
+        displayRecommendations(results);
+
+        // Scroll to results
+        recommendationsDiv.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    } catch (error) {
+        console.error('Arama yapılırken hata:', error);
+        loadingAnimation.classList.remove('active');
+    }
+}
 
 // Close modal when clicking close button or outside
 function closeModalHandler() {
