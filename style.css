@@ -990,6 +990,8 @@ footer .tmdb>a {
     opacity: 0;
     transition: all var(--transition-normal);
     border: 2px solid var(--secondary-color);
+    width: 90%;
+    max-width: 400px;
 }
 
 .notification.active {
@@ -1012,4 +1014,27 @@ footer .tmdb>a {
 .notification-content p {
     margin: 0;
     font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+@media (max-width: 768px) {
+    .notification {
+        width: calc(100% - 2rem);
+        padding: 0.75rem 1rem;
+        top: 10px;
+    }
+
+    .notification-content {
+        gap: 0.75rem;
+        justify-content: center;
+    }
+
+    .notification-content i {
+        font-size: 1.25rem;
+    }
+
+    .notification-content p {
+        font-size: 0.9rem;
+    }
 }
