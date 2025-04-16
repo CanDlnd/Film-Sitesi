@@ -9,6 +9,7 @@ const modalDetails = document.getElementById('modal-details');
 const closeModal = document.querySelector('.close');
 const searchInput = document.getElementById('searchInput');
 const searchButton = document.getElementById('searchButton');
+const notification = document.getElementById('notification');
 
 // Event Listeners
 mediaTypeSelect.addEventListener('change', loadGenres);
@@ -117,7 +118,11 @@ async function getRecommendation() {
     const genreId = genreSelect.value;
 
     if (!genreId) {
-        alert('Lütfen bir tür seçin!');
+        // Show notification
+        notification.classList.add('active');
+        setTimeout(() => {
+            notification.classList.remove('active');
+        }, 3000);
         return;
     }
 

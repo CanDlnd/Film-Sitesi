@@ -976,3 +976,40 @@ footer .tmdb {
 footer .tmdb>a {
     color: #ec3174;
 }
+
+.notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-150%);
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1rem 2rem;
+    box-shadow: var(--shadow-md);
+    z-index: 1000;
+    opacity: 0;
+    transition: all var(--transition-normal);
+    border: 2px solid var(--secondary-color);
+}
+
+.notification.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-color);
+}
+
+.notification-content i {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+}
+
+.notification-content p {
+    margin: 0;
+    font-weight: 500;
+}
