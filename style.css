@@ -1,0 +1,258 @@
+:root {
+    --primary-color: #032541;
+    --secondary-color: #21d07a;
+    --background-color: #f5f5f5;
+    --text-color: #333;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--primary-color);
+    padding: 1.5rem;
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+nav h1 {
+    font-size: 2rem;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.recommendation-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto 3rem auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e1e1e1;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+select:focus {
+    border-color: var(--secondary-color);
+}
+
+.recommend-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.recommend-btn:hover {
+    background-color: #1ab369;
+}
+
+.recommendations {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+.movie-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.movie-info {
+    padding: 1.5rem;
+}
+
+.movie-info h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.rating {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 2% auto;
+    width: 90%;
+    max-width: 900px;
+    border-radius: 16px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+#modal-details {
+    padding: 2rem;
+}
+
+#modal-details img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 0;
+    margin: -2rem -2rem 2rem -2rem;
+    width: calc(100% + 4rem);
+}
+
+#modal-details h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+#modal-details p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+#modal-details strong {
+    color: var(--primary-color);
+}
+
+.close {
+    position: fixed;
+    right: calc(5% + 20px);
+    top: 20px;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.close:hover {
+    transform: rotate(90deg);
+    background: var(--primary-color);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 0 auto;
+    }
+
+    #modal-details {
+        padding: 1.5rem;
+    }
+
+    #modal-details img {
+        height: 300px;
+        margin: -1.5rem -1.5rem 1.5rem -1.5rem;
+        width: calc(100% + 3rem);
+    }
+
+    #modal-details h2 {
+        font-size: 1.5rem;
+    }
+
+    .close {
+        right: 20px;
+        width: 35px;
+        height: 35px;
+        font-size: 1.5rem;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .recommendation-form {
+        padding: 1.5rem;
+    }
+
+    .recommendations {
+        grid-template-columns: 1fr;
+    }
+
+    .movie-card img {
+        height: 300px;
+    }
+
+    .modal-content {
+        margin: 10% auto;
+        padding: 1.5rem;
+    }
+}
